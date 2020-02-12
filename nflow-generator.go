@@ -35,7 +35,9 @@ var opts struct {
 	CollectorIP   string `short:"t" long:"target" description:"target ip address of the netflow collector"`
 	CollectorPort string `short:"p" long:"port" description:"port number of the target netflow collector"`
 	SpikeProto    string `short:"s" long:"spike" description:"run a second thread generating a spike for the specified protocol"`
-    FalseIndex    bool   `short:"f" long:"false-index" description:"generate false SNMP interface indexes, otherwise set to 0"`
+	FalseIndex    bool   `short:"f" long:"false-index" description:"generate false SNMP interface indexes, otherwise set to 0"`
+	MinRate    int   `short:"m" long:"min-rate" description:"Set the Min Rate to desire value"`
+	MaxRate    int   `short:"e" long:"max-rate" description:"Set the Max Rate to desire value"`
     Help          bool   `short:"h" long:"help" description:"show nflow-generator help"`
 }
 
@@ -66,9 +68,12 @@ func main() {
 	log.Infof("sending netflow data to a collector ip: %s and port: %s. \n"+
 		"Use ctrl^c to terminate the app.", opts.CollectorIP, opts.CollectorPort)
 
+		
 	for {
 		rand.Seed(time.Now().Unix())
-		n := randomNum(50, 1000)
+		n := randomNum(opts.MinRate, opts.MaxRate)
+		log.Infof("Sending with min : %s %s %s", opts.MinRate, opts.MaxRate , n)
+
 		// add spike data
 		if opts.SpikeProto != "" {
 			GenerateSpike()
