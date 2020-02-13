@@ -1,0 +1,12 @@
+./nflow-generator -t netflow.cynamics.net -p 8051 -m 1000 -e 10000
+
+./nflow-generator -t 10.118.136.211 -p 8041 -m 1000 -e 10000
+
+
+
+#BUILD IMAGE
+docker build -t cynamics/netflow .docker run cynamics/netflow:latest -t 10.118.136.211 -p 8041 -m 1000 -e 10000
+
+
+#RUN IMAGE
+docker run cynamics/netflow:latest -t 10.118.136.211 -p 8041 -m 1000 -e 10000

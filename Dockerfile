@@ -1,7 +1,5 @@
 FROM golang
 
-MAINTAINER Brent Salisbury <brent.salisbury@gmail.com>
-
 ADD . /go/src/github.com/nerdalert/nflow-generator
 
 RUN go get github.com/Sirupsen/logrus \
